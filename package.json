@@ -1,11 +1,11 @@
 {
-  "name": "context7",
+  "name": "@vedanth/context7",
   "version": "1.0.0",
   "description": "CLI for Context7 — get up-to-date, version-specific library docs from your terminal",
   "type": "module",
   "bin": {
-    "c7": "./bin/c7.js",
-    "context7": "./bin/c7.js"
+    "c7": "bin/c7.js",
+    "context7": "bin/c7.js"
   },
   "keywords": [
     "context7",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/VedanthB/context7-cli"
+    "url": "git+https://github.com/VedanthB/context7-cli.git"
   },
   "author": "Vedanth Bora",
   "license": "MIT",
