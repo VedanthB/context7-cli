@@ -90,9 +90,34 @@ c7 docs /vercel/next.js "image" --tokens 5000   # Latest
 c7 docs /websites/nextjs_15 "image"              # v15 specific
 ```
 
-## How It Works
+## Why CLI instead of MCP?
 
-Context7 indexes documentation from source repos and official docs. The CLI queries their API to get relevant, version-specific code snippets and API references — the same data that powers the MCP server used by Cursor, Claude Code, and other AI editors.
+Context7's MCP server works great inside editors like Cursor and Claude Code. But MCP is a protocol that needs a compatible client. If you're working in a plain terminal, writing a shell script, building a CI pipeline, or feeding docs into a local LLM — MCP can't help you.
+
+`c7` gives you the same documentation database as plain text on stdout. No protocol, no client setup. It works anywhere you can run a command:
+
+```bash
+# In a script
+DOCS=$(c7 nextjs "app router" --tokens 8000)
+echo "$DOCS" | your-llm-of-choice
+
+# In CI
+c7 your-library "migration guide" > context.txt
+
+# Piped into local models
+c7 react hooks | ollama run codellama "explain these patterns"
+```
+
+Use the MCP server in your editor. Use `c7` everywhere else. They complement each other.
+
+## How it works
+
+Two API calls:
+
+1. **Resolve** — searches Context7's index for a library name, returns a library ID
+2. **Fetch** — pulls documentation for that ID, filtered by topic and token limit
+
+The CLI is 170 lines across two files (`bin/c7.js` + `lib/api.js`), uses only Node's built-in `fetch`, and has zero npm dependencies.
 
 ## Credits
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { readFileSync } from 'fs';
 import { resolve, getDocs } from '../lib/api.js';
 
 const HELP = `
@@ -14,6 +15,7 @@ const HELP = `
     --tokens <n>       Max tokens to return (default: 5000)
     --api-key <key>    Context7 API key (or set CONTEXT7_API_KEY)
     --json             Output raw JSON (resolve only)
+    --version, -v      Show version
     --help, -h         Show this help
 
   Examples:
@@ -35,6 +37,7 @@ function parseArgs(argv) {
     else if (a === '--api-key' && argv[i + 1]) { args.apiKey = argv[++i]; }
     else if (a === '--json') { args.json = true; }
     else if (a === '--help' || a === '-h') { args.help = true; }
+    else if (a === '--version' || a === '-v') { args.version = true; }
     else { args._.push(a); }
   }
   return args;
@@ -76,9 +79,7 @@ async function cmdDocs(libraryOrId, topic, opts) {
       process.exit(1);
     }
     libraryId = results[0].id;
-    if (!process.stdout.isTTY) {
-      // Pipe mode: skip the info line
-    } else {
+    if (process.stdout.isTTY) {
       console.error(`→ ${libraryId}`);
     }
   }
@@ -94,6 +95,12 @@ async function cmdDocs(libraryOrId, topic, opts) {
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
   opts.apiKey = opts.apiKey || process.env.CONTEXT7_API_KEY;
+
+  if (opts.version) {
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+    console.log(pkg.version);
+    process.exit(0);
+  }
 
   if (opts.help || opts._.length === 0) {
     console.log(HELP);
