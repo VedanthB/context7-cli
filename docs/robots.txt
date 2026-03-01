@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vedanthb.github.io/context7-cli/sitemap.xml

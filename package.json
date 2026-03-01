@@ -1,6 +1,6 @@
 {
   "name": "@vedanth/context7",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI for Context7 — get up-to-date, version-specific library docs from your terminal",
   "type": "module",
   "bin": {
@@ -17,8 +17,22 @@
     "docs",
     "library",
     "api",
-    "llm"
+    "llm",
+    "developer-tools",
+    "terminal",
+    "cursor",
+    "claude",
+    "pipe",
+    "api-reference",
+    "code-examples",
+    "ai-coding",
+    "devtools",
+    "no-dependencies"
   ],
+  "homepage": "https://vedanthb.github.io/context7-cli/",
+  "bugs": {
+    "url": "https://github.com/VedanthB/context7-cli/issues"
+  },
   "scripts": {
     "test": "node --test test/"
   },

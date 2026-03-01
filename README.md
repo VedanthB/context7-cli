@@ -1,8 +1,12 @@
 # c7 — Context7 CLI
 
+[![npm version](https://img.shields.io/npm/v/@vedanth/context7)](https://www.npmjs.com/package/@vedanth/context7) [![npm downloads](https://img.shields.io/npm/dm/@vedanth/context7)](https://www.npmjs.com/package/@vedanth/context7) [![license](https://img.shields.io/npm/l/@vedanth/context7)](./LICENSE) [![node](https://img.shields.io/node/v/@vedanth/context7)](https://nodejs.org)
+
 Get up-to-date, version-specific library docs from your terminal. No MCP client needed.
 
 Built on top of [Context7](https://context7.com) — the same docs that power Cursor, Claude, and other AI coding assistants, now available as a simple CLI.
+
+> **Note:** This package is published as [`@vedanth/context7`](https://www.npmjs.com/package/@vedanth/context7) on npm. The unscoped `context7` on npm is a different, unrelated project.
 
 ## Why?
 
@@ -16,8 +20,8 @@ Your AI coding assistant hallucinates APIs that don't exist. Context7's MCP fixe
 ## Install
 
 ```bash
-npx context7                     # Run directly (no install)
-npm install -g context7           # Or install globally
+npx @vedanth/context7               # Run directly (no install)
+npm install -g @vedanth/context7     # Or install globally
 ```
 
 ## Usage
@@ -93,6 +97,14 @@ Context7 indexes documentation from source repos and official docs. The CLI quer
 ## Credits
 
 Powered by [Context7](https://context7.com) by [Upstash](https://upstash.com).
+
+## c7 vs other Context7 packages
+
+| Package | What it is |
+|---------|------------|
+| **`@vedanth/context7`** (this) | CLI tool — library docs in your terminal |
+| `@upstash/context7` | Official MCP server for AI editors |
+| `context7` (unscoped) | Different project, not related |
 
 ## License
 
