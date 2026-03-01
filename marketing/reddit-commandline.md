@@ -12,19 +12,19 @@ Small CLI that queries Context7's documentation database and prints results to s
 
 ```bash
 # Basic usage
-c7 react hooks                          # Print React hooks docs
-c7 express middleware --tokens 3000     # Limit output size
+c7 drizzle "queries"                       # Print Drizzle ORM query docs
+c7 hono "middleware" --tokens 3000         # Limit output size
 
 # Compose with pipes
-c7 nextjs "api routes" | grep "export"  # Filter for exports
-c7 prisma "schema" | less               # Page through docs
-c7 react "useEffect" | pbcopy           # Copy to clipboard
-c7 tailwindcss "grid" | wc -l           # Count lines
-c7 express middleware >> prompt.txt      # Append to file
+c7 zod "schemas" | grep "z.object"         # Filter for object schemas
+c7 drizzle "schema" | less                 # Page through docs
+c7 hono "context" | pbcopy                 # Copy to clipboard
+c7 zod "validation" | wc -l               # Count lines
+c7 drizzle "migrations" >> prompt.txt      # Append to file
 
 # Feed into LLMs
-c7 react hooks | claude "summarize"
-c7 express middleware | ollama run codellama "explain"
+c7 zod "transforms" | claude "summarize"
+c7 hono "routing" | ollama run deepseek-coder "explain"
 ```
 
 **What it does:** Resolves a library name against Context7's database, fetches version-specific documentation with code examples, and prints it. That's it.
@@ -47,3 +47,4 @@ npm install -g @vedanth/context7 # Or install globally for `c7`
 Source: https://github.com/VedanthB/context7-cli
 npm: https://www.npmjs.com/package/@vedanth/context7
 Website: https://vedanthb.github.io/context7-cli/
+Author: https://akarispeed.xyz

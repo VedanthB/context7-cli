@@ -15,13 +15,15 @@ So I built `c7` — a CLI that pulls the same docs from Context7's database and 
 **Quick example:**
 
 ```bash
-# Get React hooks docs and pipe into Claude
-c7 react hooks | claude "summarize the key patterns and show usage examples"
+# Get Prisma docs and pipe into Claude Code CLI (the `claude` command)
+c7 prisma "relations" | claude "summarize the relation patterns and show usage examples"
 
 # Feed Next.js docs into a coding prompt
 DOCS=$(c7 nextjs "app router" --tokens 8000)
 claude "Build a middleware using these docs:\n$DOCS"
 ```
+
+> Note: The `claude` command in these pipe examples refers to [Claude Code](https://docs.anthropic.com/en/docs/claude-code), Anthropic's CLI for Claude. It accepts piped stdin as context.
 
 **How it compares to the MCP approach:**
 
@@ -37,8 +39,8 @@ It's ~170 lines of pure Node.js with zero dependencies. The whole thing just use
 **Install:**
 
 ```bash
-npx @vedanth/context7 react hooks          # No install needed
-npm install -g @vedanth/context7            # Or install globally for `c7` command
+npx @vedanth/context7 prisma "findMany"   # No install needed
+npm install -g @vedanth/context7           # Or install globally for `c7` command
 ```
 
 Works without an API key for basic usage.
@@ -46,5 +48,6 @@ Works without an API key for basic usage.
 - GitHub: https://github.com/VedanthB/context7-cli
 - npm: https://www.npmjs.com/package/@vedanth/context7
 - Landing page: https://vedanthb.github.io/context7-cli/
+- Author: https://akarispeed.xyz
 
-Happy to answer any questions. Would love to hear how others are handling the "outdated docs in AI prompts" problem.
+What libraries would you use this with? I've been using it mostly for framework docs (Next.js, Prisma, Hono) where the API surface changes often.

@@ -3,8 +3,6 @@ title: "I Built a CLI That Gives Your LLM Accurate Library Docs — No MCP Serve
 published: false
 description: "c7 pulls up-to-date, version-specific library documentation from Context7 and pipes it into any LLM, script, or Unix tool from your terminal."
 tags: ai, cli, webdev, productivity
-canonical_url: https://vedanthb.github.io/context7-cli/
-cover_image:
 ---
 
 ## The Problem
@@ -20,12 +18,12 @@ But MCP has a constraint: you need an MCP-compatible client. If you're working i
 I built [`c7`](https://github.com/VedanthB/context7-cli) — a CLI that pulls from the same Context7 database and outputs docs as plain text to stdout.
 
 ```bash
-c7 react hooks
-c7 express middleware
-c7 nextjs "app router" --tokens 8000
+c7 tailwindcss "dark mode"
+c7 drizzle "migrations"
+c7 hono "routing" --tokens 8000
 ```
 
-That's it. No server, no configuration, no IDE integration. Just text you can pipe anywhere.
+No server, no configuration, no IDE integration. Just text you can pipe anywhere.
 
 ## How It Works
 
@@ -43,34 +41,34 @@ lib/api.js  —  40 lines (Context7 API client)
 
 No axios. No commander. No chalk. Just `process.argv` and `fetch`.
 
-## The Real Power: Pipes
+## Composing with pipes
 
 Because `c7` outputs plain text to stdout, it composes with everything:
 
 ### Pipe into LLMs
 
 ```bash
-# Claude
-c7 react hooks | claude "summarize the key patterns and show examples"
+# Claude Code CLI
+c7 drizzle "queries" | claude "summarize the query patterns and show examples"
 
 # Ollama (local models)
-c7 express middleware | ollama run codellama "explain this middleware pattern"
+c7 hono "middleware" | ollama run deepseek-coder "explain this middleware pattern"
 
 # Any LLM CLI
-c7 nextjs "api routes" | llm "write an API route based on these docs"
+c7 tailwindcss "responsive" | llm "write a responsive layout based on these docs"
 ```
 
 ### Pipe into Unix tools
 
 ```bash
 # Search docs
-c7 nextjs "api routes" | grep "export"
+c7 hono "routing" | grep "app.get"
 
 # Page through docs
-c7 prisma "schema" | less
+c7 drizzle "schema" | less
 
 # Copy to clipboard
-c7 react "useEffect" | pbcopy
+c7 tailwindcss "animations" | pbcopy
 
 # Build context files
 c7 nextjs "app router" --tokens 8000 >> context.txt
@@ -81,8 +79,8 @@ c7 react "server components" --tokens 5000 >> context.txt
 
 ```bash
 # Pre-load context for a coding agent
-DOCS=$(c7 nextjs "app router middleware" --tokens 8000)
-claude "Build a Next.js middleware that handles auth. Use these docs:\n$DOCS"
+DOCS=$(c7 hono "middleware" --tokens 8000)
+claude "Build a Hono middleware that handles auth. Use these docs:\n$DOCS"
 ```
 
 ## c7 vs MCP Server
@@ -93,7 +91,6 @@ claude "Build a Next.js middleware that handles auth. Use these docs:\n$DOCS"
 | **Works in** | MCP-compatible editors | Terminal, scripts, CI, anywhere |
 | **Composable** | Limited to MCP protocol | Pipes, redirects, subshells |
 | **Dependencies** | Several npm packages | Zero |
-| **Lines of code** | ~1000+ | ~170 |
 
 They're complementary. Use the MCP server in your editor, use `c7` everywhere else.
 
@@ -101,13 +98,13 @@ They're complementary. Use the MCP server in your editor, use `c7` everywhere el
 
 ```bash
 # Run without installing
-npx @vedanth/context7 react hooks
+npx @vedanth/context7 tailwindcss "grid"
 
 # Or install globally
 npm install -g @vedanth/context7
-c7 react hooks
-c7 express middleware --tokens 3000
-c7 nextjs "app router" | claude "summarize"
+c7 drizzle "relations"
+c7 hono "context" --tokens 3000
+c7 tailwindcss "dark mode" | less
 ```
 
 No API key required for basic usage. For higher rate limits, get a free key at [context7.com/dashboard](https://context7.com/dashboard).
@@ -121,4 +118,4 @@ No API key required for basic usage. For higher rate limits, get a free key at [
 
 ---
 
-*Built by [Vedanth Bora](https://twitter.com/thevedanthbora). If this saves you from one hallucinated API, it was worth the afternoon I spent building it.*
+*Built by [Vedanth Bora](https://twitter.com/thevedanthbora) ([akarispeed.xyz](https://akarispeed.xyz)). If this saves you from one hallucinated API, it was worth the afternoon I spent building it.*
