@@ -8,9 +8,11 @@
 
 **First comment:**
 
-There's been growing sentiment that CLIs beat MCP servers for developer tools — MCP adds protocol complexity where stdout would do.
+Mario Zechner benchmarked Playwright's MCP server at 13.7k tokens just for tool descriptions. A minimal CLI README covering the same capabilities: 225 tokens. Jannik Reinhard found similar numbers with the GitHub MCP server — 93 tools consuming ~55k tokens in definitions alone.
 
-Context7 indexes docs from library source repos. Their MCP server feeds this into Cursor, but it requires a compatible client. c7 is a CLI that gives you the same data as plain text on stdout. Pipe it into any LLM, grep, less, or your own scripts.
+Eric Holmes put the alternative well: "Ship a good API, then ship a good CLI. The agents will figure it out."
+
+c7 is that approach applied to library documentation. Context7 indexes docs from library source repos. Their MCP server feeds this into Cursor, but it requires a compatible client. c7 gives you the same data as plain text on stdout.
 
 ```
 c7 astro "routing" | claude "summarize the key patterns"
@@ -24,5 +26,5 @@ Install: `npx @vedanth/context7`
 
 GitHub: https://github.com/VedanthB/context7-cli
 npm: https://www.npmjs.com/package/@vedanth/context7
-Website: https://vedanthb.github.io/context7-cli/
+Website: https://c7.akarispeed.xyz/
 Author: https://akarispeed.xyz

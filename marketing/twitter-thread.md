@@ -8,73 +8,57 @@
 
 **Tweet 1 (Hook):**
 
-Everyone's been saying CLIs > MCP servers for dev tools lately. I agree.
+Peter Steinberger (190k GitHub stars, hired by OpenAI): "mcp were a mistake. bash is better."
 
-Context7 has great library docs, but locks them behind an MCP server that only works inside editors.
+8+ blog posts in Feb 2026 alone arguing CLIs beat MCP servers.
 
-So I built c7 — same docs, plain stdout. Pipe into any LLM, grep, scripts. Anywhere.
+So I built c7 — library docs piped to stdout for any LLM. 170 lines, zero deps.
 
-170 lines. Zero dependencies. One command.
-
-akarispeed.xyz
+github.com/VedanthB/context7-cli
 
 ---
 
-**Tweet 2 (Problem):**
+**Tweet 2 (The number):**
 
-The problem:
-- Ask Claude to write a Next.js API route -> get Pages Router syntax from v12
-- Paste docs into the prompt -> they're already outdated
-- Use MCP server -> only works in Cursor/Claude Code
+GitHub's MCP server ships 93 tools that eat ~55,000 tokens in tool definitions.
 
-Devs working in the terminal or with local models have limited options.
+That's half of GPT-4o's context window. Gone. Before you ask a single question.
+
+The CLI equivalent? Zero token overhead. Just the output you asked for.
 
 ---
 
-**Tweet 3 (Solution):**
+**Tweet 3 (The comparison):**
 
-c7 pulls real, version-specific docs from Context7's database and prints them to stdout.
+Playwright MCP: 13,700 tokens for tool descriptions.
+A CLI README teaching the same thing: 225 tokens.
 
-```
-c7 hono "routing"
-c7 zod "schemas"
-c7 astro "content collections"
-```
+That's a 60x difference.
 
-No server setup. No config. Just text you can pipe into anything.
+For local models with 8k context, this is the difference between "it works" and "it doesn't fit."
 
 ---
 
 **Tweet 4 (Demo):**
 
-Pipe into any LLM:
+c7 pulls real, version-specific docs from Context7 and prints to stdout. Pipe into anything:
 
-```
-c7 zod "validation" | claude "summarize"
-c7 hono "middleware" | ollama run deepseek-coder "explain"
-```
-
-Pipe into Unix tools:
-
-```
+c7 hono "routing" | claude "summarize"
+c7 zod "schemas" | ollama run deepseek-coder "explain"
 c7 astro "routing" | grep "getStaticPaths"
-c7 zod "schemas" | less
-```
 
-Pipe into scripts, CI, whatever.
+No server. No config. No IDE plugin.
 
 ---
 
 **Tweet 5 (CTA):**
 
-Try it now — no install needed:
+Try it, no install needed:
 
-```
 npx @vedanth/context7 hono "routing"
-```
 
 GitHub: github.com/VedanthB/context7-cli
 npm: npmjs.com/package/@vedanth/context7
-Website: vedanthb.github.io/context7-cli/
+Website: c7.akarispeed.xyz
 
-#webdev #ai #cli #opensource #devtools
+#webdev #ai #cli #opensource

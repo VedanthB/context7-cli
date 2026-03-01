@@ -12,15 +12,15 @@ c7 pulls version-specific library documentation from Context7 and outputs it as 
 
 ## Full Description
 
-### The Problem
+### Why CLI over MCP?
 
-AI coding assistants hallucinate APIs. Context7 fixes this with an MCP server, but developers have been pushing back on MCP — it ties you to specific editors when a simple CLI would do.
+In February 2026, 8+ major blog posts were published arguing that CLIs beat MCP servers for developer tools. The numbers tell the story: Jannik Reinhard benchmarked the MCP approach for listing 50 Intune devices at ~145,000 tokens. The CLI approach: ~4,150 tokens. A 35x reduction in context consumed.
 
-### The Solution
-
-**c7** is a CLI that pulls from the same Context7 documentation database and outputs it to stdout. It works everywhere — your terminal, shell scripts, CI pipelines, or piped into any LLM.
+AI coding assistants hallucinate APIs. Context7 fixes this with an MCP server, but the CLI approach gives you the same data without the protocol overhead or editor lock-in.
 
 ### How it works
+
+**c7** pulls from Context7's documentation database and outputs plain text to stdout. Works everywhere, not just inside MCP-compatible editors.
 
 ```bash
 # Search for docs
@@ -37,9 +37,9 @@ c7 tailwindcss "grid" | grep "columns"
 c7 prisma schema | less
 ```
 
-### Why it's different
+### Under the hood
 
-The entire install is `npx @vedanth/context7` — no server, no config, no IDE plugin. Under the hood it's 170 lines of pure Node.js with zero npm dependencies, using just built-in `fetch` to query Context7's live documentation database. Because it outputs plain text to stdout, it composes naturally with pipes, redirects, and subshells — feed docs into Claude, Ollama, llama.cpp, grep, or just `cat`. It's the same data that powers the Context7 MCP server in Cursor, without the MCP client requirement.
+The entire install is `npx @vedanth/context7`. No server, no config, no IDE plugin. It's 170 lines of pure Node.js with zero npm dependencies, using just built-in `fetch` to query Context7's live documentation database. Because it outputs plain text to stdout, it composes naturally with pipes, redirects, and subshells. Same data that powers the Context7 MCP server in Cursor, without requiring an MCP client.
 
 ### Links
 
@@ -47,17 +47,17 @@ The entire install is `npx @vedanth/context7` — no server, no config, no IDE p
 - **Try now:** `npx @vedanth/context7 prisma "relations"`
 - **GitHub:** https://github.com/VedanthB/context7-cli
 - **npm:** https://www.npmjs.com/package/@vedanth/context7
-- **Website:** https://vedanthb.github.io/context7-cli/
+- **Website:** https://c7.akarispeed.xyz/
 - **Author:** https://akarispeed.xyz
 
 ## Maker Comment
 
-I kept seeing the same argument online: why are we wrapping everything in MCP servers when a CLI would do? Context7 has great doc data, but their MCP server only works in editors that support the protocol.
+I kept seeing the same argument across dev blogs this February: why are we wrapping everything in MCP servers when a CLI would do? Someone made `mcp-grep`. An MCP wrapper around grep. That's when it clicked for me how far the pendulum had swung.
 
-So I built the CLI version. If you're SSHing into a server, writing a bash script, or using a local LLM, you just pipe and go.
+Context7 has solid doc data, but their MCP server only works inside editors that support the protocol. If you're SSHing into a server, writing a bash script, or using Ollama on a local model with a tight context window, you need something else.
 
-c7 is just a pipe. It outputs text. What you do with that text is up to you — feed it to Claude, Ollama, grep, or append it to a file.
+So I built the CLI version. It's just a pipe. It outputs text. What you do with that text is up to you.
 
-It's 170 lines with zero npm dependencies. The entire thing is just `process.argv` parsing and two `fetch` calls to Context7's API.
+The 35x token reduction over MCP isn't theoretical. Reinhard's benchmarks showed real-world MCP calls eating 145k tokens where a CLI command used 4.1k. When you're paying per token or running a model with limited context, that gap is the whole ballgame.
 
 Try it: `npx @vedanth/context7 prisma "relations"`
