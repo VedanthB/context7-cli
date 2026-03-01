@@ -14,7 +14,7 @@ c7 pulls version-specific library documentation from Context7 and outputs it as 
 
 ### The Problem
 
-AI coding assistants hallucinate APIs. They suggest functions that don't exist and use outdated syntax. Context7 fixes this with an MCP server — but MCP only works inside supported editors like Cursor.
+AI coding assistants hallucinate APIs. Context7 fixes this with an MCP server, but developers have been pushing back on MCP — it ties you to specific editors when a simple CLI would do.
 
 ### The Solution
 
@@ -52,9 +52,9 @@ The entire install is `npx @vedanth/context7` — no server, no config, no IDE p
 
 ## Maker Comment
 
-I built c7 because I wanted Context7's docs in my terminal workflows, not just inside my editor.
+I kept seeing the same argument online: why are we wrapping everything in MCP servers when a CLI would do? Context7 has great doc data, but their MCP server only works in editors that support the protocol.
 
-The MCP server is great when you're in Cursor, but if you're SSHing into a server, writing a bash script, or using a local LLM — you're back to pasting docs manually.
+So I built the CLI version. If you're SSHing into a server, writing a bash script, or using a local LLM, you just pipe and go.
 
 c7 is just a pipe. It outputs text. What you do with that text is up to you — feed it to Claude, Ollama, grep, or append it to a file.
 

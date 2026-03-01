@@ -8,11 +8,11 @@
 
 **Tweet 1 (Hook):**
 
-Your AI assistant hallucinates APIs that don't exist.
+Everyone's been saying CLIs > MCP servers for dev tools lately. I agree.
 
-Context7 fixes this with an MCP server — but only inside supported editors.
+Context7 has great library docs, but locks them behind an MCP server that only works inside editors.
 
-I built a CLI that gives you the same docs anywhere. Terminal, scripts, local LLMs.
+So I built c7 — same docs, plain stdout. Pipe into any LLM, grep, scripts. Anywhere.
 
 170 lines. Zero dependencies. One command.
 

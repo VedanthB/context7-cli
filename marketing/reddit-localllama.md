@@ -8,7 +8,7 @@
 
 **Body:**
 
-Built a CLI tool that pulls version-specific library documentation and outputs it as plain text to stdout. It's designed to work with whatever LLM setup you have — Ollama, llama.cpp, text-generation-webui, anything that reads stdin.
+There's been a lot of discussion about CLIs vs MCP servers lately, and I think CLIs win for anything that should be composable. Built a CLI that pulls version-specific library documentation and outputs it as plain text to stdout. Works with whatever LLM setup you have — Ollama, llama.cpp, text-generation-webui, anything that reads stdin.
 
 **Examples with Ollama:**
 

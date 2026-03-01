@@ -8,9 +8,9 @@
 
 **First comment:**
 
-Context7 indexes documentation from library source repos and official docs. Their MCP server feeds this into AI editors like Cursor, but MCP requires specific client support.
+There's been growing sentiment that CLIs beat MCP servers for developer tools — MCP adds protocol complexity where stdout would do.
 
-c7 is a CLI that gives you the same data as plain text on stdout. Pipe it into any LLM, grep, less, or your own scripts.
+Context7 indexes docs from library source repos. Their MCP server feeds this into Cursor, but it requires a compatible client. c7 is a CLI that gives you the same data as plain text on stdout. Pipe it into any LLM, grep, less, or your own scripts.
 
 ```
 c7 astro "routing" | claude "summarize the key patterns"

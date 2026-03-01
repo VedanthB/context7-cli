@@ -8,9 +8,9 @@
 
 **Body:**
 
-I kept running into the same problem: Claude hallucinates APIs that don't exist or uses outdated syntax. The MCP server from Context7 fixes this, but you need Cursor or another MCP-compatible editor.
+There's been a lot of talk lately about CLIs being better than MCP servers for dev tools. MCP ties you to specific editors. A CLI just gives you text you can pipe anywhere.
 
-So I built `c7` — a CLI that pulls the same docs from Context7's database and lets you pipe them directly into Claude from your terminal.
+Context7 has great docs data (it's what powers Cursor's doc lookup), but their MCP server only works inside MCP-compatible editors. So I built `c7` — a CLI that pulls the same docs and lets you pipe them directly into Claude from your terminal.
 
 **Quick example:**
 

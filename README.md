@@ -10,12 +10,13 @@ Built on top of [Context7](https://context7.com) — the same docs that power Cu
 
 ## Why?
 
-Your AI coding assistant hallucinates APIs that don't exist. Context7's MCP fixes that — but only if you're inside an MCP-compatible editor.
+There's been a growing consensus that CLIs are better than MCP servers for developer tools. MCP locks you into specific editors. A CLI just gives you text — pipe it wherever you want.
 
-`c7` gives you the same docs anywhere:
-- Pipe into agent prompts before they start coding
-- Quick lookups without leaving the terminal
-- Feed accurate docs into any LLM, any workflow
+Context7 has great docs data, but their MCP server only works inside Cursor and other MCP clients. `c7` makes the same data available as plain stdout:
+
+- Pipe into any LLM (Claude Code, Ollama, llama.cpp, whatever)
+- Compose with grep, jq, less, pbcopy, or shell scripts
+- Use in CI, automation, agent prompts — anywhere you can run a command
 
 ## Install
 
@@ -92,9 +93,9 @@ c7 docs /websites/nextjs_15 "image"              # v15 specific
 
 ## Why CLI instead of MCP?
 
-Context7's MCP server works great inside editors like Cursor and Claude Code. But MCP is a protocol that needs a compatible client. If you're working in a plain terminal, writing a shell script, building a CI pipeline, or feeding docs into a local LLM — MCP can't help you.
+Developers have been saying it for months: MCP adds complexity where a simple CLI would do. An MCP server needs a compatible client, configuration files, and an editor that speaks the protocol. A CLI needs `npx` and a pipe.
 
-`c7` gives you the same documentation database as plain text on stdout. No protocol, no client setup. It works anywhere you can run a command:
+`c7` outputs plain text to stdout. That means it works with every tool that already exists:
 
 ```bash
 # In a script

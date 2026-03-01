@@ -11,7 +11,7 @@ You're building with Next.js 15 and ask your AI assistant to write an API route.
 
 [Context7](https://context7.com) solved this by indexing documentation directly from source repos and serving it through an MCP server. Cursor, Claude Code, and other AI editors use it to get real, version-specific docs instead of hallucinated APIs.
 
-But MCP has a constraint: you need an MCP-compatible client. If you're working in the terminal, running a script, or using a local LLM — you're out of luck.
+But there's been a growing consensus in the dev community: MCP adds unnecessary complexity for tools that should just output text. You need an MCP-compatible client. If you're working in the terminal, running a script, or using a local LLM — you're locked out.
 
 ## The Solution
 
