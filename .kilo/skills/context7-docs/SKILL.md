@@ -2,7 +2,7 @@
 name: context7-docs
 description: Get documentation for a library from Context7. Use when you need up-to-date library documentation, API references, code examples, or specific topic information from Context7.
 license: MIT
-compatibility: Requires Node.js >=18 and the @vedanth/context7 package installed
+compatibility: Requires Node.js >=18. The @vedanth/context7 CLI can be installed globally, installed as a project dependency, or used via npx (zero install).
 metadata:
   author: Kilo
   version: "1.0.1"
@@ -187,10 +187,13 @@ Common issues and solutions:
 
 3. **With Editor Integration**
    ```bash
-   # Create helper scripts for your editor
-   echo '#!/bin/bash\nc7 "$@"' > ~/bin/context7-search
-   chmod +x ~/bin/context7-search
-   ```
+    # Create helper scripts for your editor
+    cat > ~/bin/context7-search << 'SCRIPT'
+#!/bin/bash
+c7 "$@"
+SCRIPT
+    chmod +x ~/bin/context7-search
+    ```
 
 ### Use Cases
 

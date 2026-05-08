@@ -2,7 +2,7 @@
 name: context7-resolve
 description: Find Context7 library IDs for a given library name. Use when you need to resolve library names to their Context7 identifiers for documentation retrieval.
 license: MIT
-compatibility: Requires Node.js >=18 and the @vedanth/context7 package installed
+compatibility: Requires Node.js >=18. The @vedanth/context7 CLI can be installed globally, installed as a project dependency, or used via npx (zero install).
 metadata:
   author: Kilo
   version: "1.0.1"
@@ -94,7 +94,7 @@ When using `--json`, returns an array of results:
 
 ```bash
 # Resolve, extract ID, then fetch docs
-ID=$(c7 resolve react --json | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d)[0].id))")
+ID=$(c7 resolve react --json | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');process.stdout.write(JSON.parse(d)[0].id)")
 c7 docs "$ID" "hooks"
 ```
 
@@ -150,7 +150,7 @@ resolve-lib:
 		data.forEach(r => console.log(r.id, '-', r.description));"
 
 docs:
-	c7 docs $(shell c7 resolve $(LIB) --json | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d)[0].id))") "$(TOPIC)"
+	c7 docs $(shell c7 resolve $(LIB) --json | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');process.stdout.write(JSON.parse(d)[0].id)") "$(TOPIC)"
 ```
 
 #### In Automation Scripts
@@ -160,7 +160,7 @@ docs:
 # fetch-docs.sh — resolve and fetch docs in one step
 LIB=$1
 TOPIC=$2
-ID=$(npx @vedanth/context7 r "$LIB" --json | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d)[0].id))")
+ID=$(npx @vedanth/context7 r "$LIB" --json | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');process.stdout.write(JSON.parse(d)[0].id)")
 npx @vedanth/context7 docs "$ID" "$TOPIC"
 ```
 
