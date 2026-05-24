@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'fs';
-import { resolve, getDocs } from '../lib/api.js';
+import { fileURLToPath } from 'url';
+import { resolve, getDocs, formatSearchResults } from '../lib/api.js';
 
 const HELP = `
   context7 — Up-to-date library docs from your terminal
@@ -12,16 +12,15 @@ const HELP = `
     c7 docs <context7-id> [topic]     Get docs by exact Context7 ID
 
   Options:
-    --tokens <n>       Max tokens to return (default: 5000)
     --api-key <key>    Context7 API key (or set CONTEXT7_API_KEY)
     --json             Output raw JSON (resolve only)
+    --tokens <n>       (Deprecated, ignored) Previously set max tokens
     --version, -v      Show version
     --help, -h         Show this help
 
   Examples:
     c7 resolve nextjs
     c7 docs react "server components"
-    c7 docs nextjs "app router middleware" --tokens 10000
     c7 docs /vercel/next.js "image optimization"
 
   Pipe-friendly:
@@ -29,7 +28,7 @@ const HELP = `
     c7 docs express middleware >> prompt.txt
 `.trim();
 
-function parseArgs(argv) {
+export function parseArgs(argv) {
   const args = { _: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -43,7 +42,7 @@ function parseArgs(argv) {
   return args;
 }
 
-function isContext7Id(s) {
+export function isContext7Id(s) {
   return s.startsWith('/') && s.split('/').length >= 3;
 }
 
@@ -60,39 +59,36 @@ async function cmdResolve(libraryName, opts) {
     process.exit(1);
   }
 
-  const maxId = Math.max(...results.map(r => (r.id || '').length));
-  for (const r of results) {
-    const id = (r.id || '').padEnd(maxId + 2);
-    const desc = r.description || r.title || '';
-    console.log(`  ${id}${desc}`);
-  }
+  const output = formatSearchResults(results);
+  console.log(output);
 }
 
 async function cmdDocs(libraryOrId, topic, opts) {
+  if (opts.tokens !== undefined) {
+    process.stderr.write('Warning: --tokens is deprecated and ignored in v2. The API now determines optimal token count.\n');
+  }
+
   let libraryId = libraryOrId;
 
   // If not a Context7 ID, resolve it first
   if (!isContext7Id(libraryOrId)) {
-    const results = await resolve(libraryOrId, opts.apiKey);
+    const results = await resolve(libraryOrId, opts.apiKey, topic);
     if (!Array.isArray(results) || results.length === 0) {
       console.error(`No libraries found for "${libraryOrId}"`);
       process.exit(1);
     }
     libraryId = results[0].id;
-    if (process.stdout.isTTY) {
-      console.error(`→ ${libraryId}`);
+    if (process.stderr.isTTY) {
+      process.stderr.write(`→ ${libraryId}\n`);
     }
   }
 
-  const docs = await getDocs(libraryId, topic, opts.apiKey, opts.tokens || 5000);
-  if (!docs) {
-    console.error('No docs found');
-    process.exit(1);
-  }
+  const docs = await getDocs(libraryId, topic, opts.apiKey);
   console.log(docs);
 }
 
 async function main() {
+  const { readFileSync } = await import('fs');
   const opts = parseArgs(process.argv.slice(2));
   opts.apiKey = opts.apiKey || process.env.CONTEXT7_API_KEY;
 
@@ -134,4 +130,7 @@ async function main() {
   }
 }
 
-main();
+// Only run main when executed directly (not imported)
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

@@ -25,7 +25,7 @@ jobs:
           echo "Testing Context7 search API..."
 
           HTTP_CODE=$(curl -s -o /tmp/response.json -w "%{http_code}" \
-            "https://context7.com/api/v1/search?query=react")
+            "https://context7.com/api/v2/libs/search?query=react&libraryName=react")
 
           echo "HTTP status: $HTTP_CODE"
           echo "http_code=$HTTP_CODE" >> "$GITHUB_OUTPUT"
@@ -70,7 +70,7 @@ jobs:
               `**Error:** ${process.env.ERROR_DETAIL}`,
               '',
               '### Details',
-              'The daily health check against `GET https://context7.com/api/v1/search?query=react` failed.',
+              'The daily health check against `GET https://context7.com/api/v2/libs/search?query=react&libraryName=react` failed.',
               '',
               'This may indicate:',
               '- The Context7 API is down or experiencing issues',

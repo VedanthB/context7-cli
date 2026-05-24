@@ -1,6 +1,6 @@
 {
   "name": "@vedanth/context7",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "CLI for Context7 — get up-to-date, version-specific library docs from your terminal",
   "type": "module",
   "bin": {
@@ -34,7 +34,7 @@
     "url": "https://github.com/VedanthB/context7-cli/issues"
   },
   "scripts": {
-    "test": "node --test test/"
+    "test": "node --test test/api.test.js test/cli.test.js test/integration.test.js"
   },
   "repository": {
     "type": "git",
