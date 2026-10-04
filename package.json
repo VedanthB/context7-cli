@@ -1,6 +1,6 @@
 {
   "name": "@vedanth/context7",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI for Context7 — get up-to-date, version-specific library docs from your terminal",
   "type": "module",
   "bin": {
